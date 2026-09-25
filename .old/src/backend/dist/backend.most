@@ -1,0 +1,101 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type ContactMessage__251890845 =
+  {
+    createdAt : Timestamp__384207765;
+    email : Text;
+    id : Id__446439349;
+    message : Text;
+    name : Text;
+    phone : Text;
+    subject : Text
+  };
+type ContactMessage__410395177 =
+  {
+    createdAt : Nat;
+    email : Text;
+    id : Nat;
+    message : Text;
+    name : Text;
+    phone : Text;
+    subject : Text
+  };
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Id__389469852 = Nat;
+type Id__446439349 = Id__389469852;
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__248761742 =
+  {
+    accessControlState : AccessControlState__201339279;
+    contactMessages : Map__230067015<Nat, ContactMessage__410395177>;
+    products : Map__230067015<Nat, Product__829726121>;
+    state : {var nextContactMessageId : Nat}
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type Product__389207432 =
+  {
+    category : Text;
+    createdAt : Timestamp__384207765;
+    description : Text;
+    featured : Bool;
+    id : Id__446439349;
+    images : [Text];
+    material : Text;
+    motif : Text;
+    name : Text;
+    price : Nat;
+    size : Text;
+    slug : Text
+  };
+type Product__829726121 =
+  {
+    category : Text;
+    createdAt : Nat;
+    description : Text;
+    featured : Bool;
+    id : Nat;
+    images : [Text];
+    material : Text;
+    motif : Text;
+    name : Text;
+    price : Nat;
+    size : Text;
+    slug : Text
+  };
+type Timestamp__301639476 = Nat;
+type Timestamp__384207765 = Timestamp__301639476;
+type UserRole__91647283 = {#admin; #guest; #user};
+{
+  "20260920_000000" : (_old : {}) -> NewActor__248761742
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable contactMessages :
+    {
+      var root : Node__204828119<Id__446439349, ContactMessage__251890845>;
+      var size : Nat__227979830
+    };
+  stable products :
+    {
+      var root : Node__204828119<Id__446439349, Product__389207432>;
+      var size : Nat__227979830
+    };
+  stable state : {var nextContactMessageId : Nat}
+};

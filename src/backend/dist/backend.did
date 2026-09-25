@@ -1,0 +1,116 @@
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Timestamp = nat;
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type ProductSort = 
+ variant {
+   newest;
+   priceHighToLow;
+   priceLowToHigh;
+ };
+type ProductFilter = 
+ record {
+   category: opt text;
+   search: opt text;
+   sort: opt ProductSort;
+ };
+type Product = 
+ record {
+   category: text;
+   createdAt: Timestamp;
+   description: text;
+   featured: bool;
+   id: Id;
+   images: vec text;
+   material: text;
+   motif: text;
+   name: text;
+   price: nat;
+   size: text;
+   slug: text;
+ };
+type Id = nat;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type ContactMessage = 
+ record {
+   createdAt: Timestamp;
+   email: text;
+   id: Id;
+   message: text;
+   name: text;
+   phone: text;
+   subject: text;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+service : {
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  execute: (qJson: text) -> (Result) query;
+  /// Returns the backend API documentation as Markdown.
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  /// Returns a product by id, or null when it does not exist.
+  getProduct: (id: Id) -> (opt Product) query;
+  /// Returns a product by slug, or null when it does not exist.
+  getProductBySlug: (slug: text) -> (opt Product) query;
+  isCallerAdmin: () -> (bool) query;
+  /// Returns the distinct product categories.
+  listCategories: () -> (vec text) query;
+  /// Returns the featured products.
+  listFeaturedProducts: () -> (vec Product) query;
+  /// Lists products with optional category filter, name search, and sort order.
+  listProducts: (filter: ProductFilter) -> (vec Product) query;
+  schema: () -> (text) query;
+  /// Submits a contact message and returns the stored record.
+  submitContactMessage: (name: text, email: text, phone: text, subject: 
+   text, message: text) -> (ContactMessage);
+}

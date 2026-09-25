@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Figtree";
+  src: url("/assets/fonts/Figtree.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk";
+    --font-body: "Figtree";
+    --font-mono: "Geist Mono";
+    --radius: 0.125rem;
+
+    /* Tenun Monochrome — light gallery canvas, near-black ink, one soga accent */
+    --background: 0.975 0.004 85;
+    --foreground: 0.185 0.008 60;
+    --card: 1 0 0;
+    --card-foreground: 0.185 0.008 60;
+    --popover: 1 0 0;
+    --popover-foreground: 0.185 0.008 60;
+
+    --primary: 0.2 0.01 60;
+    --primary-foreground: 0.975 0.004 85;
+
+    --secondary: 0.945 0.006 85;
+    --secondary-foreground: 0.25 0.01 60;
+    --muted: 0.945 0.006 85;
+    --muted-foreground: 0.5 0.012 60;
+
+    --accent: 0.52 0.11 55;
+    --accent-foreground: 0.985 0.004 85;
+
+    --destructive: 0.52 0.19 27;
+    --destructive-foreground: 0.975 0.004 27;
+
+    --success: 0.52 0.11 150;
+    --warning: 0.7 0.14 80;
+
+    --border: 0.9 0.006 85;
+    --input: 0.9 0.006 85;
+    --ring: 0.52 0.11 55;
+
+    --chart-1: 0.52 0.11 55;
+    --chart-2: 0.2 0.01 60;
+    --chart-3: 0.62 0.07 75;
+    --chart-4: 0.45 0.05 30;
+    --chart-5: 0.75 0.04 90;
+
+    --sidebar: 0.975 0.004 85;
+    --sidebar-foreground: 0.185 0.008 60;
+    --sidebar-primary: 0.52 0.11 55;
+    --sidebar-primary-foreground: 0.985 0.004 85;
+    --sidebar-accent: 0.945 0.006 85;
+    --sidebar-accent-foreground: 0.25 0.01 60;
+    --sidebar-border: 0.9 0.006 85;
+    --sidebar-ring: 0.52 0.11 55;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.24 0.012 60),
+      oklch(0.17 0.008 55)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.975 0.004 85),
+      oklch(0.955 0.008 80)
+    );
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .dark {
+    --background: 0.16 0.008 60;
+    --foreground: 0.95 0.005 85;
+    --card: 0.2 0.01 60;
+    --card-foreground: 0.95 0.005 85;
+    --popover: 0.22 0.01 60;
+    --popover-foreground: 0.95 0.005 85;
+
+    --primary: 0.95 0.005 85;
+    --primary-foreground: 0.16 0.008 60;
+
+    --secondary: 0.24 0.012 60;
+    --secondary-foreground: 0.88 0.006 85;
+    --muted: 0.24 0.012 60;
+    --muted-foreground: 0.66 0.01 75;
+
+    --accent: 0.68 0.13 60;
+    --accent-foreground: 0.16 0.008 60;
+
+    --destructive: 0.62 0.18 27;
+    --destructive-foreground: 0.95 0.005 27;
+
+    --success: 0.68 0.13 150;
+    --warning: 0.78 0.14 80;
+
+    --border: 0.3 0.01 60;
+    --input: 0.3 0.01 60;
+    --ring: 0.68 0.13 60;
+
+    --chart-1: 0.68 0.13 60;
+    --chart-2: 0.95 0.005 85;
+    --chart-3: 0.72 0.07 75;
+    --chart-4: 0.58 0.06 30;
+    --chart-5: 0.8 0.04 90;
+
+    --sidebar: 0.2 0.01 60;
+    --sidebar-foreground: 0.95 0.005 85;
+    --sidebar-primary: 0.68 0.13 60;
+    --sidebar-primary-foreground: 0.16 0.008 60;
+    --sidebar-accent: 0.24 0.012 60;
+    --sidebar-accent-foreground: 0.88 0.006 85;
+    --sidebar-border: 0.3 0.01 60;
+    --sidebar-ring: 0.68 0.13 60;
+
+    --gradient-primary: linear-gradient(
+      135deg,
+      oklch(0.95 0.005 85),
+      oklch(0.86 0.01 80)
+    );
+    --gradient-subtle: linear-gradient(
+      180deg,
+      oklch(0.16 0.008 60),
+      oklch(0.2 0.01 60)
+    );
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display uppercase tracking-[0.14em];
+  }
+  ::selection {
+    background: oklch(var(--accent) / 0.2);
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  .bg-gradient-primary {
+    background-image: var(--gradient-primary);
+  }
+  .bg-gradient-subtle {
+    background-image: var(--gradient-subtle);
+  }
+  /* Signature: hairline woven-warp texture, used inside accent-outlined surfaces */
+  .weave-lines {
+    background-image: repeating-linear-gradient(
+      90deg,
+      oklch(var(--foreground) / 0.07) 0px,
+      oklch(var(--foreground) / 0.07) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  }
+  .weave-lines-light {
+    background-image: repeating-linear-gradient(
+      90deg,
+      oklch(1 0 0 / 0.08) 0px,
+      oklch(1 0 0 / 0.08) 1px,
+      transparent 1px,
+      transparent 7px
+    );
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
